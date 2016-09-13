@@ -1,17 +1,17 @@
-pages['question'] = function(question){
-
-	$(document).ready(function () {
-		var main = $('main');
-
-		main.html('');
-		main.append($("<h3>" + question.question + "</h3>"));
-		main.append($('<div>' + JSON.stringify(question.answers) + '</div>'));
-		main.append($('<div class="result">Loading...</div>'))
-		yawp(question.id).get('results').then(function (data) {
-			main.find('.result').html(JSON.stringify(data));
-		});
-
-		// TODO plot chart, style, etc
+$(document).ready(function () {
+	new Page('question', function(parameter){
+		yawp('/questions/' + parameter).fetch(function(question){
+			var content = $("<div></div>");
+			content.append($("<h3>" + question.question + "</h3>"));
+			content.append($('<div>' + JSON.stringify(question.answers) + '</div>'));
+			content.append($('<div class="result">Loading...</div>'))
+			yawp(question.id).get('results').then(function (data) {
+				content.find('.result').html(JSON.stringify(data));
+			});
+			this.main.append(content);
+		}.bind(this));
+		
+			
+			
 	});
-
-};
+});

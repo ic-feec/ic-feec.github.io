@@ -1,29 +1,41 @@
-pages['questions'] = function(){
+var questionOpen;
 
-	$(document).ready(function () {
-		var main = $('main');
+$(document).ready(function () {
+	new Page('questions', function(){
+		var content = $("<div class='row'>");
+		var row = $("<div class='col s10 m8 questions'><h5>Questions</h5>");
+		var card = $("<div class='card'>");
+		row.append(card);
+		content.append(row);
+
 
 		yawp('/questions').list(function (questions) {
 			if(questions.length == 0){
-				main.html('<h3>Tem questão não!</h3>').
+				card.html('<h6>Tem questão não!</h6>').
 				return;
 			}
-
-			main.html('');
 			questions.forEach(function (question) {
-				main.append(questionDiv(question));
+				card.append(questionDiv(question));
 			});
 		});
+
+		function questionDiv(question){
+			var div = $('<div>');
+
+			var waves = $('<div class="waves waves-effect waves-light">');
+			div.append(waves);
+
+			var id = question.id.substring(11);
+			var link = $('<a href="#/question:' +  id + '">');
+			div.append(link);
+			
+
+			div.addClass('question');
+			link.text(question.question);
+			
+			return div;
+		}
+		this.main.append(content);
+
 	});
-
-	function questionDiv(question){
-		var div = $('<div>');
-		div.addClass('question');
-		div.on('click', function(){
-			pages['question'](question);
-		});
-		div.text(question.question);
-		return div;
-	}
-
-};
+});

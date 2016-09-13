@@ -1,9 +1,10 @@
 {
   "name": "tsaade-web",
   "version": "1.0.0",
-  "description": "python -m SimpleHTTPServer 8000",
+  "description": "",
   "main": "app.js",
   "scripts": {
+    "pyserver": "python -m SimpleHTTPServer 8000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

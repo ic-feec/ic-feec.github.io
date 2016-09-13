@@ -1,9 +1,5 @@
-pages['new-question'] = function(question){
-
-	$(document).ready(function () {
-		var main = $('main');
-		main.html('');
-		main.append($("<h3>New question</h3>"));
-	});
-
-};
+$(document).ready(function () {
+	new Page('new-question', function(question){
+		this.main.append($("<h3>New question</h3>"));
+	})
+});

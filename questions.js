@@ -1,27 +1,29 @@
 pages['questions'] = function(){
 
 	$(document).ready(function () {
-		var listaContainer = $('main');
+		var main = $('main');
 
-		yawp('/questions').list(function (data) {
-			listaContainer.html("");
-			if(data.length == 0){
-				listaContainer.html("<h3>Tem questão não!</h3>").
+		yawp('/questions').list(function (questions) {
+			if(questions.length == 0){
+				main.html('<h3>Tem questão não!</h3>').
 				return;
 			}
 
-			for(var i = 0; i < data.length; i++){
-				listaContainer.append(questionNode(data[i]));
-			}
-
-			listaContainer.find('.question').on('click',function(){
-				// document.location.href = 
+			main.html('');
+			questions.forEach(function (question) {
+				main.append(questionDiv(question));
 			});
 		});
 	});
 
-	function questionNode(question){
-		return "<div class='question'>" + question.question + "</div>"
+	function questionDiv(question){
+		var div = $('<div>');
+		div.addClass('question');
+		div.on('click', function(){
+			pages['question'](question);
+		});
+		div.text(question.question);
+		return div;
 	}
 
 };

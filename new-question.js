@@ -1,8 +1,13 @@
 $(document).ready(function () {
 	new Page('new-question', function(question){
-		this.main.append($("<h3>New question</h3>"));
-		this.main.append($('<input type="text" class="title" placeholder="Title" />'));
-		this.main.append($('<input type="text" class="question" placeholder="Question" />'));
+		var content = $("<div class='row'>");
+		var column = $("<div class='col s10 m8 questions'><h5>New question</h5>");
+		var card = $("<div class='card'>");
+		column.append(card);
+		content.append(column);
+
+		card.append($('<input type="text" class="title" placeholder="Title" />'));
+		card.append($('<input type="text" class="question" placeholder="Question" />'));
 
 		var button = $('<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>');
 		button.on('click', function () {
@@ -15,6 +20,8 @@ $(document).ready(function () {
 				console.log('success', q);
 			});
 		});
-		this.main.append(button);
+		card.append(button);
+
+		this.main.append(content);
 	});
 });

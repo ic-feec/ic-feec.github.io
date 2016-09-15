@@ -27,7 +27,7 @@ $(document).ready(function () {
 			div.append(link);
 			
 			div.addClass('question');
-			link.text(question.question);
+			link.text(question.title);
 
 			var waves = $('<div class="waves waves-effect waves-dark">');
 			link.append(waves);

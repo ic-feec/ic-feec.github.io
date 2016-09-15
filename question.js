@@ -27,6 +27,10 @@ $(document).ready(function () {
 			content.append($('<canvas id="chart" />'));
 
 			yawp(question.id).get('results').then(function (data) {
+				if (!Array.isArray(data)) {
+					content.find('ul li .result').text('-');
+					return;
+				}
 				var colors = data.map(randomColor);
 				var chart = new Chart(content.find('#chart'), {
 					type: 'doughnut',

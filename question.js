@@ -18,7 +18,6 @@ $(document).ready(function () {
 			yawp(question.id).get('results').then(function (data) {
 				content.find('.loading').html('');
 				data.forEach(function (datum, i) {
-					console.log(i, datum);
 					content.find('ul li.' + i + ' .result').html(format(datum * 100) + '%');
 				});
 			});

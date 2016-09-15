@@ -1,8 +1,11 @@
 $(document).ready(function () {
 
-	var row = function (el) {
+	var row = function () {
 		var row = $('<div class="row">');
-		row.append(el);
+		var args = Array.prototype.slice.call(arguments);
+		args.forEach(function (arg) {
+			row.append(arg);
+		});
 		return row;
 	}
 
@@ -20,7 +23,7 @@ $(document).ready(function () {
 		card.append(row($('<div class="answers col s12">')));
 
 		var i = 0;
-		var newAnswer = $('<span class="add-answer">Add answer</span>');
+		var newAnswer = $('<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>');
 		newAnswer.on('click', function () {
 			var answer = $('<div class="answer row">');
 			answer.append($('<span class="col s10"><input type="text" placeholder="Answer" /></span>'));
@@ -32,21 +35,30 @@ $(document).ready(function () {
 			answer.append(x);
 			card.find('.answers').append(answer);
 		}).trigger('click');
-		card.append($('<input type="radio" name="correctAnswer" id="-1" /><label for="-1">No correct answer</label></span>'));
-		card.append(newAnswer);
+		card.append(row($('<input type="radio" name="correctAnswer" id="-1" /><label for="-1">No correct answer</label></span>')));
 
-		var button = $('<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>');
+		var button = $('<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">send</i></a>');
 		button.on('click', function () {
+			var answers = this.main.find('.answer').map(function () {
+				return {
+					val : $(this).find('input[type=text]').val(),
+					correct : $(this).find('input[type=radio]').is(':checked')
+				};
+			}).get();
 			yawp('/questions').create({
 				title : this.main.find('.title').val(),
 				question : this.main.find('.question').val(),
-				answers : [ 'asd', '123', 'hue' ],
+				answers : answers.map(function (ans) { return ans.val; }),
+				correctAnswer : answers.map(function (ans) { return ans.correct; }).indexOf(true),
 				finished : true
 			}).then(function (q) {
 				console.log('success', q);
+				window.location.hash = '/questions';
 			});
-		});
-		card.append(button);
+		}.bind(this));
+		var fabs = row(newAnswer, button);
+		fabs.css('text-align', 'right');
+		card.append(fabs);
 
 		this.main.append(content);
 	});

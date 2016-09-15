@@ -22,7 +22,6 @@ $(document).ready(function () {
 		function questionDiv(question){
 			var div = $('<div>');
 
-
 			var id = question.id.substring(11);
 			var link = $('<a href="#/question:' +  id + '">');
 			div.append(link);

@@ -51,11 +51,8 @@ function Page(name, open) {
     this.name = name;
     this.main = $('main');
     pages[this.name] = function(parameter, payload) {
-
         window.location.hash = parameter ? "/" + this.name + ":" + parameter : "/" + this.name;
         this.main.html('');
-        var content = open.bind(this)(parameter, payload);
-        console.log(content);
-
+        open.bind(this)(parameter, payload);
     }.bind(this);
 }

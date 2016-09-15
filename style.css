@@ -1,17 +1,7 @@
-@media only screen and (min-width : 992px) {
-	.nav-wrapper{
-		padding-left: 20px;
-	}
-	.abrir-menu{
-		display: none;
-	}
+[data-activates="my-sidenav"]{
+	margin-left: 12px;
+	display: block;
 }
-
-@media only screen and (max-width : 992px) {
-}
-
-
-
 .questions {
 	text-align: center;
 	float: none !important;
@@ -43,4 +33,28 @@
 	z-index: 1;
 	display: block;
 	padding: 20px;
+}
+
+/*default content*/
+.default-box{
+	height: 86vh;
+	text-align: center;
+	color:#666;
+	padding: 20px;
+	position: relative;
+}
+.default-box > *{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+@media only screen and (min-width : 992px) {
+	.nav-wrapper{
+		padding-left: 20px;
+	}
+	.abrir-menu{
+		display: none;
+	}
 }

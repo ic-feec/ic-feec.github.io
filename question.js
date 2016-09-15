@@ -4,6 +4,15 @@ $(document).ready(function () {
 		return parseFloat(Math.round(num3 * 100) / 100).toFixed(2);
 	};
 
+	var randomColor = function() {
+		var letters = '0123456789ABCDEF'.split('');
+		var color = '#';
+		for (var i = 0; i < 6; i++ ) {
+		    color += letters[Math.floor(Math.random() * 16)];
+		}
+		return color;
+	};
+
 	new Page('question', function(parameter){
 		yawp('/questions/' + parameter).fetch(function(question){
 			var content = $("<div></div>");
@@ -14,9 +23,21 @@ $(document).ready(function () {
 				ul.append($('<li class="' + i + '">' + answer + ' <span class="result">0%</span></li>'));
 			});
 			content.append(ul);
-			content.append($('<div class="loading">Loading...</div>'));
+			content.append($('<canvas id="chart" />'));
+
 			yawp(question.id).get('results').then(function (data) {
-				content.find('.loading').html('');
+				var colors = data.map(randomColor);
+				var chart = new Chart(content.find('#chart'), {
+					type: 'doughnut',
+					data: {
+						labels: question.answers,
+						datasets: [{
+							data : data,
+							backgroundColor : colors,
+							hoverBackgroundColor : colors
+						}]
+					}
+				});
 				data.forEach(function (datum, i) {
 					content.find('ul li.' + i + ' .result').html(format(datum * 100) + '%');
 				});

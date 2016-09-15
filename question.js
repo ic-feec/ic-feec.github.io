@@ -1,5 +1,14 @@
 $(document).ready(function () {
 
+	var row = function () {
+		var row = $('<div class="row">');
+		var args = Array.prototype.slice.call(arguments);
+		args.forEach(function (arg) {
+			row.append(arg);
+		});
+		return row;
+	};
+
 	var format = function (num3) {
 		return parseFloat(Math.round(num3 * 100) / 100).toFixed(2);
 	};
@@ -15,16 +24,21 @@ $(document).ready(function () {
 
 	new Page('question', function(parameter) {
 		yawp('/questions/' + parameter).fetch(function(question) {
-			var content = $("<div></div>");
-			content.addClass('card');
-			content.append($("<h3>" + question.title + "</h3>"));
-			content.append($("<span>" + question.question + "</span>"));
-			var ul = $('<ul>');
+			var content = $("<div class='row'>");
+			var column = $("<div class='col s10 m8 questions'><h5>New question</h5>");
+			var card = $("<div class='card'>");
+			column.append(card);
+			content.append(column);
+
+			card.append(row($('<span/>')));
+			card.append(row($('<span class="col s12">' + question.question + '</span>')));
+			card.append(row($('<span class="col s12">' + question.creationDate + '</span>')));
+			var ul = $('<ul class="col s12">');
 			question.answers.forEach(function (answer, i) {
 				ul.append($('<li class="' + i + '">' + answer + ' <span class="result"></span></li>'));
 			});
-			content.append(ul);
-			content.append($('<canvas id="chart" />'));
+			card.append(row(ul));
+			card.append($('<canvas id="chart" />'));
 
 			yawp(question.id).get('results').then(function (data) {
 				if (!Array.isArray(data)) {
@@ -48,13 +62,7 @@ $(document).ready(function () {
 				});
 			});
 
-			var cow = $('<div class="col s10 m8 questions">');
-			cow.append(content);
-
-			var row = $('<div class="row">');
-			row.append(cow);
-
-			this.main.append(row);
+			this.main.append(content);
 		}.bind(this));
 		
 			

@@ -33,7 +33,7 @@ $(document).ready(function () {
 			});
 			answer.append(x);
 			answer.append($('<span class="col s10 m8"><input type="text" placeholder="Answer" /></span>'));
-			answer.append($('<span class="col s1 m3"><input type="radio" name="correctAnswer" id="' + i + '" /><label for="' + i++ + '"> Correct</label></span>'));
+			answer.append($('<span class="col s1 m3"><input type="radio" name="correctAnswer" id="' + i + '" /><label for="' + i++ + '"> </label></span>'));
 			card.find('.answers').append(answer);
 		}).trigger('click');
 		var noCorrectAnswer = $('<span class="col s5" style="text-align: left"><input type="radio" name="correctAnswer" id="-1" /><label for="-1">No correct answer</label></span></span>');

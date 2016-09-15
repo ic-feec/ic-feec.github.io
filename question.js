@@ -13,14 +13,15 @@ $(document).ready(function () {
 		return color;
 	};
 
-	new Page('question', function(parameter){
-		yawp('/questions/' + parameter).fetch(function(question){
+	new Page('question', function(parameter) {
+		yawp('/questions/' + parameter).fetch(function(question) {
 			var content = $("<div></div>");
 			content.addClass('card');
-			content.append($("<h3>" + question.question + "</h3>"));
+			content.append($("<h3>" + question.title + "</h3>"));
+			content.append($("<span>" + question.question + "</span>"));
 			var ul = $('<ul>');
 			question.answers.forEach(function (answer, i) {
-				ul.append($('<li class="' + i + '">' + answer + ' <span class="result">0%</span></li>'));
+				ul.append($('<li class="' + i + '">' + answer + ' <span class="result"></span></li>'));
 			});
 			content.append(ul);
 			content.append($('<canvas id="chart" />'));

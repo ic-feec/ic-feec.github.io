@@ -10,9 +10,9 @@ $(document).ready(function () {
 	};
 
 	new Page('new-question', function(question){
-		var content = $("<div class='row'>");
-		var column = $("<div class='col s10 m8 questions'><h5>New question</h5>");
-		var card = $("<div class='card'>");
+		var content = $('<div class="row">');
+		var column = $('<div class="col s10 m8 questions"><h5>New question</h5>');
+		var card = $('<div class="card">');
 		column.append(card);
 		content.append(column);
 

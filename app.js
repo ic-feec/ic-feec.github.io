@@ -31,6 +31,10 @@ yawp.config(function(c) {
 pages = [];
 
 $(document).ready(function() {
+    $(".open-menu").sideNav();
+    $('.side-nav').on('click', function(e){
+        $('.open-menu').sideNav('hide')
+    });
     var hash = window.location.hash.substring(2).split(":");
     if (hash != "") {
         try {
